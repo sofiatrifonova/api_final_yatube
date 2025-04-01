@@ -2,7 +2,7 @@ from http import HTTPStatus
 
 import pytest
 
-from posts.models import Group
+from posts.group import Group
 
 
 @pytest.mark.django_db(transaction=True)
