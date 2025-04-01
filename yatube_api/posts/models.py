@@ -3,6 +3,27 @@ from django.db import models
 from .group import Group
 
 
+class Follow(models.Model):
+    user = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        related_name='follower',
+    )
+    following = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        related_name='followers',
+    )
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['user', 'following'],
+                name='unique_follow'
+            )
+        ]
+
+
 class Post(models.Model):
     text = models.TextField()
     pub_date = models.DateTimeField(

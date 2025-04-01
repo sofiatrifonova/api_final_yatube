@@ -1,7 +1,7 @@
 import pytest
 
 from posts.group import Group
-from posts.follow import Follow
+from posts.models import Follow
 
 from posts.models import Comment, Post
 

@@ -3,7 +3,7 @@ from http import HTTPStatus
 from django.db.utils import IntegrityError
 import pytest
 
-from posts.follow import Follow
+from posts.models import Follow
 
 
 @pytest.mark.django_db(transaction=True)

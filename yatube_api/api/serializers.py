@@ -2,18 +2,22 @@ from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from rest_framework.relations import SlugRelatedField
 from posts.group import Group
-from posts.follow import Follow
+from posts.models import Follow
 
 from posts.models import Comment, Post
 
 
-class GroupSerializer(serializers.ModelSerializer):
+class GroupSerializer(
+    serializers.ModelSerializer
+):
     class Meta:
         model = Group
         fields = ('id', 'title', 'slug', 'description')
 
 
-class FollowSerializer(serializers.ModelSerializer):
+class FollowSerializer(
+    serializers.ModelSerializer
+):
     user = serializers.SlugRelatedField(
         slug_field='username',
         read_only=True,
@@ -41,7 +45,9 @@ class FollowSerializer(serializers.ModelSerializer):
         return data
 
 
-class PostSerializer(serializers.ModelSerializer):
+class PostSerializer(
+    serializers.ModelSerializer
+):
     author = SlugRelatedField(
         slug_field='username',
         read_only=True,
@@ -57,18 +63,14 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = (
-            'id',
-            'text',
-            'author',
-            'group',
-            'pub_date',
-            'image'
-        )
+        fields = ('id', 'text', 'author',
+                  'group', 'pub_date', 'image')
         read_only_fields = ('author', 'pub_date',)
 
 
-class CommentSerializer(serializers.ModelSerializer):
+class CommentSerializer(
+    serializers.ModelSerializer
+):
     author = serializers.StringRelatedField(
         read_only=True,
         required=False,
@@ -80,11 +82,6 @@ class CommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = (
-            'id',
-            'text',
-            'author',
-            'post',
-            'created'
-        )
+        fields = ('id', 'text', 'author',
+                  'post', 'created')
         read_only_fields = ('author', 'post',)
